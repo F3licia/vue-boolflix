@@ -20,12 +20,13 @@
     <li v-for="element in movieList">
         <p>Title: {{element.title}}</p>
         <p>Original title: {{element.original_title}}</p>
-        <p>Original lang: {{element.original_language}}</p>   
+        <p>Original lang:</p>
+        <img alt="" v-bind:src="element.original_language" alt="">
         <p>vote: {{element.vote_count}}</p>
     
     
     </li>
-
+  
  </main>
  <script src="scriptBoolflix.js"></script>   
 </body>
