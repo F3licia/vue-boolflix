@@ -8,15 +8,28 @@ const app = new Vue({
           tvSeriesList:[],
           },
 
-          methods:{
+        methods:{
 
-            getLanguages() {
+            /*getLanguages() { //inutilizzato
                 this.movieList.forEach((movie) => {
-                    if(!this.langList.includes(movie.original_language)){
-                     this.langList.push(movie.original_language);       
-                    }
+                     this.langList.push(movie.original_language)     
+                    
                 })
-            },
+            },*/
+
+            workOnData(data) {
+               data.map((element) => {
+               if(element.original_language ==="en"){element.original_language ="us"}
+               if(element.original_language ==="ja"){element.original_language ="jp"}
+               if(element.original_language ==="da"){element.original_language ="dk"}
+               element.original_language_2 = "https://www.countryflags.io/"+element.original_language+"/flat/64.png";
+
+               element.vote_average_2 =   Math.ceil(element.vote_average /2 )  //stampare stelle
+
+               element.poster_path_2 = "https://image.tmdb.org/t/p/w342"+element.poster_path;
+               return element
+                })
+           },
 
              makeAxiosSearch(type){
                 const axiosOptions={
@@ -24,46 +37,27 @@ const app = new Vue({
                         api_key: this.tmdbApiK,
                         query: this.textToSearch,
                         language: "it-IT"
-                    }                                               //----------DA RIVEDERE
+                    }                                             
                 }
-                axios.get("https://api.themoviedb.org/3/search/" + type, axiosOptions).then((resp)=> {   
-                   
-                         if(type==="movie"){
-                              this.movieList = resp.data.results.map((movie) => {
-                                  if(movie.original_language ==="en"){movie.original_language ="us"}
-                                  if(movie.original_language ==="ja"){movie.original_language ="jp"}
-                                 movie.original_language = "https://www.countryflags.io/"+movie.original_language+"/flat/64.png";
-                                movie.poster_path = "https://image.tmdb.org/t/p/w342"+movie.poster_path;
-                                  
-                                  return movie
-                                  }
-                              )
-                         }else if(type==="tv"){
-                             this.tvSeriesList = resp.data.results.map((serie) => {
-                                if(movie.original_language ==="en"){movie.original_language ="us"}
-                                if(movie.original_language ==="ja"){movie.original_language ="jp"}
-                                serie.original_language = "https://www.countryflags.io/"+serie.original_language+"/flat/64.png";
-                                serie.poster_path = "https://image.tmdb.org/t/p/w342"+serie.poster_path;
-                                 serie.title = serie.name  //modifica dei dati PRIMA di inserirli in data
-                                 serie.original_title = serie.original_name 
-                                 return serie
-                                 }
-                             )};
-                             this.getLanguages()
+                axios.get("https://api.themoviedb.org/3/search/" + type, axiosOptions)
+                .then((resp)=> {                      
+                                if(type==="movie"){
+                                this.movieList = resp.data.results
+                                }else if(type==="tv"){
+                                this.tvSeriesList = resp.data.results.map((serie) => {
+                                serie.title = serie.name  
+                                serie.original_title = serie.original_name 
+                                return serie})  
+                                    }                        
+                    //this.getLanguages()
+                    this.workOnData(this.movieList)
+                    this.workOnData(this.tvSeriesList)         
                 })
-            },
-           
+            },     
             doSearch() {
-            
-            this.makeAxiosSearch("movie")
-            this.makeAxiosSearch("tv")
-            
-            
-          
+                this.makeAxiosSearch("movie")
+                this.makeAxiosSearch("tv")
             },
-            
         } 
 })         
  
-
-
