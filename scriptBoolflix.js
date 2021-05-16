@@ -10,23 +10,16 @@ const app = new Vue({
 
         methods:{
 
-            /*getLanguages() { //inutilizzato
-                this.movieList.forEach((movie) => {
-                     this.langList.push(movie.original_language)     
-                    
-                })
-            },*/
-
             workOnData(data) {
                data.map((element) => {
                if(element.original_language ==="en"){element.original_language ="us"}
                if(element.original_language ==="ja"){element.original_language ="jp"}
                if(element.original_language ==="da"){element.original_language ="dk"}
                element.original_language_2 = "https://www.countryflags.io/"+element.original_language+"/flat/64.png";
-
                element.vote_average_2 =   Math.ceil(element.vote_average /2 )  //stampare stelle
-
                element.poster_path_2 = "https://image.tmdb.org/t/p/w342"+element.poster_path;
+               element.overview_2 = element.overview;
+               if( element.overview_2.length > 50){ element.overview_2.substring(0, 50)+ "..."} //non funziona
                return element
                 })
            },
@@ -48,8 +41,7 @@ const app = new Vue({
                                 serie.title = serie.name  
                                 serie.original_title = serie.original_name 
                                 return serie})  
-                                    }                        
-                    //this.getLanguages()
+                                }                        
                     this.workOnData(this.movieList)
                     this.workOnData(this.tvSeriesList)         
                 })

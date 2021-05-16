@@ -6,45 +6,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="boolflix_style.css">
    
 
     <title>Boolflix</title>
 </head>
 
 <body>
- <main id="app" class="main">
-  
-    <input v-model="textToSearch" type="text">
-    <button @click="doSearch">cerca</button>
+<main id="app" class="main">
 
-    <li v-for="element in movieList">
-        <h3>Title: {{element.title}}</h3>
-        <h4>Original title: {{element.original_title}}</h4>
-        <p>Original lang:</p>
-        <img alt="" v-bind:src="element.original_language_2" alt="">
-        <p>vote: {{element.vote_average_2}}</p>
 
-        <div v-for="value in element.vote_average_2">
-            <i class="fa fa-star" aria-hidden="true"></i>
+    <div class="header">
+        <div class="search-bar">
+            <input v-model="textToSearch" v-on:keyup.enter ="doSearch" type="text" placeholder="Search...">
+            <button @click="doSearch">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="movie-container">
+
+        <li v-for="element in movieList" class="element-card">
+            <div class="info-box">
+
+                        <div class="title-block">
+                            <h4>Titolo: {{element.title}}</h4>
+                            <h4 v-if="element.title != element.original_title">Titolo originale: {{element.original_title}}</h4>
+                        </div>
+
+                        <div v-if="element.original_language" class="original-lang-block" class="card">
+                            <h4>Lingua originale</h4>
+                            <img alt="" v-bind:src="element.original_language_2" alt="">
+                        </div>
+                        <div v-if="element.vote_average" class="vote-block" >
+                                <h4>Voto :</h4>
+                                <div v-for="value in element.vote_average_2" class="stars-block">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                         </div>
+                         <div v-if="element.overview">
+                            <h4>Panoramica: {{element.overview_2}}</h4>
+                         </div>
+                <div class="background-overlay"></div>
+            </div>
+            <div class="poster-block">
+                <div v-if="element.poster_path"class="poster">
+                    <img alt="" v-bind:src="element.poster_path_2" alt="">
+                </div>
+                
+                <div v-else class="poster-not-found">
+                    <span> Preview not available </span>
+                </div>
+            </div>
+        </li>
+        
+           
         </div>
 
-         
-         
-        <img alt="" v-bind:src="element.poster_path_2" alt="">
-    </li>
+        <div class="series-container">
+           
+        </div>
+        
+    
 
-    <li v-for="element in tvSeriesList">
-        <h3>Title: {{element.title}}</h3>
-        <h4>Original title: {{element.original_title}}</h4>
-        <p>Original lang:</p>
-        <img alt="" v-bind:src="element.original_language_2" alt="">
-        <p>vote: {{element.vote_count}}</p>
-        <img alt="" v-bind:src="element.poster_path_2" alt="">
-    </li>
-
-
-  
  </main>
  <script src="scriptBoolflix.js"></script>   
 </body>

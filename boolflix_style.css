@@ -1,0 +1,135 @@
+*{  padding: 0;
+    margin: 0;
+    list-style: none;
+    box-sizing: border-box;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+}
+
+.header{
+    width: 100%;
+    height: 200px;
+    padding-top: 40px;
+    background-color: gray;
+}
+    .search-bar{
+        text-align: right;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 30px;
+        padding-right: 30px;
+        background-color: black;
+        opacity: 80%;
+    }
+
+    .search-bar input{
+        padding: 4px 10px;
+        border-radius: 10px;
+        }
+    .search-bar input:focus-visible{
+        outline: none;
+    }
+    .search-bar button{
+        color: seashell;
+        font-weight: lighter;
+        background-color: black;
+        padding: 4px 10px;
+        border-radius: 10px;
+    }
+
+    .search-bar button:active{
+        color: gray;
+    }
+
+.movie-container, .series-container{
+    width: 100%;
+    text-align: left;
+    display: flex;
+    background-color: lightcyan;
+    overflow-x: scroll; 
+}
+
+    .element-card{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .info-box{
+        opacity: 0%;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        padding: 30px;
+        color: white;  
+        cursor: pointer;
+        z-index: 1;
+    }
+    .info-box:hover{
+        opacity: 100%;
+    }
+    .background-overlay{
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        right: 0%;
+        bottom: 0%;
+        background-color: black;
+        opacity: 70%;
+        z-index: -1;
+    }
+
+    .title-block{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border: 1px solid purple;
+    }
+    .title-block h4:nth-child(2){
+    margin-top: 10px;
+    }
+    .original-lang-block{
+        display: flex;
+        align-items: center;
+
+        width: 100%;
+    }
+    .original-lang-block img{
+    height: 30px;
+    }
+    .original-lang-block h4{
+    margin-right: 7px;
+    }
+    .vote-block{
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    }
+    .stars-block{
+        display: inline-block;
+        font-size: 20px;
+        color: yellow;
+        margin-left: 5px;
+    }
+
+    .poster{
+        width: 342px;
+        height: 513px;
+    }
+    .poster img{
+        width: 100%;
+        height: 100%;
+    }
+
+    .poster-not-found{
+        width: 342px;
+        height: 513px;
+        color:white;
+        background-color: black;
+        opacity: 70%;
+    }
+    .poster-not-found span{
+        width: 342px;
+        height: 513px;
+        color:white;
+        background-color: black;
+        opacity: 70%;
+    }
