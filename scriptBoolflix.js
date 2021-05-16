@@ -4,7 +4,6 @@ const app = new Vue({
           tmdbApiK:"27c55bf69cc942b29c61c82472c4114c",
           textToSearch:"",
           movieList:[],
-          langList:[],
           tvSeriesList:[],
           },
 
@@ -19,7 +18,7 @@ const app = new Vue({
                element.vote_average_2 =   Math.ceil(element.vote_average /2 )  //stampare stelle
                element.poster_path_2 = "https://image.tmdb.org/t/p/w342"+element.poster_path;
                element.overview_2 = element.overview;
-               if( element.overview_2.length > 50){ element.overview_2.substring(0, 50)+ "..."} //non funziona
+               if( element.overview_2.length > 600){ element.overview_2 = element.overview_2.slice(0, 650)+ "..."} 
                return element
                 })
            },
