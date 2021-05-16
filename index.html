@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    
 
     <title>Boolflix</title>
@@ -13,7 +14,7 @@
 
 <body>
  <main id="app" class="main">
-
+  
     <input v-model="textToSearch" type="text">
     <button @click="doSearch">cerca</button>
 
@@ -23,6 +24,13 @@
         <p>Original lang:</p>
         <img alt="" v-bind:src="element.original_language_2" alt="">
         <p>vote: {{element.vote_average_2}}</p>
+
+        <div v-for="value in element.vote_average_2">
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+
+         
+         
         <img alt="" v-bind:src="element.poster_path_2" alt="">
     </li>
 
@@ -31,7 +39,7 @@
         <h4>Original title: {{element.original_title}}</h4>
         <p>Original lang:</p>
         <img alt="" v-bind:src="element.original_language_2" alt="">
-        <p>vote: {{element.vote_average_2}}</p>
+        <p>vote: {{element.vote_count}}</p>
         <img alt="" v-bind:src="element.poster_path_2" alt="">
     </li>
 
