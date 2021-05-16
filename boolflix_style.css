@@ -5,10 +5,19 @@
     position: relative;
     font-family: 'Roboto', sans-serif;
 }
-
+.fake-body{
+    position: absolute;
+    top: 0;
+    bottom:0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    background-color: rgb(136, 136, 136);
+    z-index: -2;
+}
 .header{
     width: 100%;
-    height: 200px;
+    height: 130px;
     padding-top: 40px;
     background-color: rgb(136, 136, 136);
 }
@@ -41,11 +50,21 @@
         color: gray;
     }
 
+.title-search-res{
+    padding-left: 50px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    font-weight:bolder;
+    text-transform: uppercase;
+    color: white;
+    background-color:rgb(136, 136, 136);
+}
+
 .movie-container, .series-container{
     width: 100%;
     text-align: left;
     display: flex;
-    background-color: rgb(43, 43, 43);
+    background-color: rgb(136, 136, 136);
     overflow-x: scroll; 
 }
 
@@ -123,8 +142,8 @@
         width: 342px;
         height: 513px;
         color:white;
-        background-color: black;
-        opacity: 70%;
+        background-color: rgb(39, 38, 38);
+        opacity: 50%;
     }
     .poster-not-found>h3{
         position: relative;
@@ -132,5 +151,5 @@
         top: 50%;
         text-align: center;
         text-transform: uppercase;
-        background-color: darkslategrey;
+        background-color: rgb(85, 88, 88);
     }
