@@ -11,26 +11,46 @@
     bottom:0;
     left: 0;
     right: 0;
-    height: 100vh;
-    background-color: rgb(136, 136, 136);
+    min-height: 100vh;
+    max-height: 100%;
+    background-color: black;
+    background-position: center;
+    background-image: url("boolflix_img/1979.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     z-index: -2;
+}
+.background-container{
+    background-color: rgb(34, 34, 34);
+    padding-bottom: 20px;
 }
 .header{
     width: 100%;
-    height: 130px;
-    padding-top: 40px;
-    background-color: rgb(136, 136, 136);
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+}
+
+.logo{
+    width: 300px;
+    height: 100px;
+    margin-left: 70px;
+}
+.logo>img{
+    width: auto;
+    height: 100%
 }
     .search-bar{
+        width: 300px;
         text-align: right;
-        padding-top: 20px;
-        padding-bottom: 20px;
+        padding-top: 30px;
+        padding-bottom: 30px;
         padding-left: 30px;
         padding-right: 30px;
         background-color: black;
-        opacity: 80%;
+        opacity: 100%;
     }
-
     .search-bar input{
         padding: 4px 10px;
         border-radius: 10px;
@@ -41,36 +61,56 @@
     .search-bar button{
         color: seashell;
         font-weight: lighter;
-        background-color: black;
+        background-color: #db202b;
         padding: 4px 10px;
         border-radius: 10px;
     }
-
     .search-bar button:active{
         color: gray;
     }
 
 .title-search-res{
-    padding-left: 50px;
     padding-top: 15px;
-    padding-bottom: 10px;
+    padding-bottom: 25px;
     font-weight:bolder;
     text-transform: uppercase;
-    color: white;
-    background-color:rgb(136, 136, 136);
+    color: #db202b;
 }
+.second_title{
+padding-top: 45px;
+}
+.title-search-res h1{
+padding-left: 50px;
+padding-bottom: 5px;
+border-bottom: 1px solid rgba(255, 255, 255, 0.801)
+}
+
+.customScrollBar::-webkit-scrollbar {
+    height: 10px;
+  }
+  .customScrollBar::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 10px rgba(10, 10, 10, 0.87); 
+    border-radius: 10px;
+  }
+  .customScrollBar::-webkit-scrollbar-thumb {
+    background: #db202b;
+    border-radius: 10px;
+  }
+  .customScrollBar::-webkit-scrollbar-thumb:hover {
+    background: #db202b;
+  }
 
 .movie-container, .series-container{
     width: 100%;
     text-align: left;
     display: flex;
-    background-color: rgb(136, 136, 136);
     overflow-x: scroll; 
 }
 
     .element-card{
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-left: 2px;
+        margin-right: 2px;
+        margin-bottom: 20px;
     }
 
     .info-box{
@@ -79,7 +119,8 @@
         width: 100%;
         height: 100%;
         padding: 20px;
-        color: white;  
+        color: white; 
+        border: 1px solid white;
         cursor: pointer;
         z-index: 1;
     }
@@ -123,7 +164,7 @@
     }
     .stars-block{
         display: inline-block;
-        font-size: 20px;
+        font-size: 17px;
         color: yellow;
         margin-left: 5px;
     }
@@ -142,7 +183,7 @@
         width: 342px;
         height: 513px;
         color:white;
-        background-color: rgb(39, 38, 38);
+        background-color: rgb(17, 17, 17);
         opacity: 50%;
     }
     .poster-not-found>h3{
@@ -152,4 +193,21 @@
         text-align: center;
         text-transform: uppercase;
         background-color: rgb(85, 88, 88);
+    }
+    .footer{
+     position: relative;
+     width: 100%;
+     height: 100px;
+     bottom: 0;
+     background:transparent;
+
+    }
+    .copyright-box{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 60px;
+        bottom: 0;
+        background-color: black;
+   
     }

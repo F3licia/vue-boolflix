@@ -16,9 +16,10 @@ const app = new Vue({
                if(element.original_language ==="da"){element.original_language ="dk"}
                element.original_language_2 = "https://www.countryflags.io/"+element.original_language+"/flat/64.png";
                element.vote_average_2 =   Math.ceil(element.vote_average /2 )  //stampare stelle
+               element.vote_average_difference = 5 - element.vote_average_2;
                element.poster_path_2 = "https://image.tmdb.org/t/p/w342"+element.poster_path;
                element.overview_2 = element.overview;
-               if( element.overview_2.length > 600){ element.overview_2 = element.overview_2.slice(0, 650)+ "..."} 
+               if( element.overview_2.length > 600){ element.overview_2 = element.overview_2.slice(0, 600)+ "..."} 
                return element
                 })
            },
