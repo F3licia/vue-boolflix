@@ -9,22 +9,26 @@ const app = new Vue({
 
         methods:{
 
-            workOnData(data) {
-               data.map((element) => {
-               if(element.original_language ==="en"){element.original_language ="us"}
-               if(element.original_language ==="ja"){element.original_language ="jp"}
-               if(element.original_language ==="da"){element.original_language ="dk"}
-               element.original_language_2 = "https://www.countryflags.io/"+element.original_language+"/flat/64.png";
-               element.vote_average_2 =   Math.ceil(element.vote_average /2 )  //stampare stelle
-               element.vote_average_difference = 5 - element.vote_average_2;
-               element.poster_path_2 = "https://image.tmdb.org/t/p/w342"+element.poster_path;
-               element.overview_2 = element.overview;
-               if( element.overview_2.length > 600){ element.overview_2 = element.overview_2.slice(0, 600)+ "..."} 
-               return element
-                })
-           },
+           //converte sigle lingua originale
+            workOnLang(data) {
+                data.map((el) => {
+                    switch(el.original_language) {
+                        case "en":
+                        el.original_language = "us"
+                        break;
+                        case "ja":
+                        el.original_language = "jp"
+                        break;
+                        case "da":
+                        el.original_language = "dk"
+                        break;
+                        default:
+                        el.original_language}                        
+                     })
+            },
 
-             makeAxiosSearch(type){
+            //recupera i dati dall'api e li divide in film e serie
+            makeAxiosSearch(type){
                 const axiosOptions={
                     params: {
                         api_key: this.tmdbApiK,
@@ -41,15 +45,38 @@ const app = new Vue({
                                 serie.title = serie.name  
                                 serie.original_title = serie.original_name 
                                 return serie})  
-                                }                        
-                    this.workOnData(this.movieList)
-                    this.workOnData(this.tvSeriesList)         
+                                } 
+
+                //una volta separati i dati passano in funzioni che li rielaborano (vedi workOnData)          
+                    this.workOnLang(this.movieList);
+                    this.workOnLang(this.tvSeriesList);                    
+                    this.workOnData(this.movieList);
+                    this.workOnData(this.tvSeriesList);    
                 })
-            },     
+            },
+
+            //cambia valore "type" nella stringa API
             doSearch() {
                 this.makeAxiosSearch("movie")
                 this.makeAxiosSearch("tv")
             },
+
+            //"workOnData" fa una copia dei valori e li rielabora con stringhe
+            workOnData(data) {
+
+                data.map((element) => {
+                element.original_language_2 = "https://www.countryflags.io/"+element.original_language+"/flat/64.png";   //compone link bandiera
+
+                element.vote_average_2 =   Math.ceil(element.vote_average /2 )  //stampa stelle voti
+                element.vote_average_difference = 5 - element.vote_average_2;   //stampa stelle vuote 
+
+                element.poster_path_2 = "https://image.tmdb.org/t/p/w342"+element.poster_path; //recupera poster
+
+                element.overview_2 = element.overview;   //modifica panoramica
+                if( element.overview_2.length > 600){ element.overview_2 = element.overview_2.slice(0, 600)+ "..."} 
+                return element
+                })
+             },
         } 
 })         
  
