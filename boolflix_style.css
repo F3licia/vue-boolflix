@@ -36,6 +36,7 @@
     width: 300px;
     height: 100px;
     margin-left: 70px;
+    cursor: pointer;
 }
 .logo>img{
     width: auto;
@@ -51,10 +52,12 @@
         background-color: black;
         opacity: 100%;
     }
+
     .search-bar input{
         padding: 4px 10px;
         border-radius: 10px;
         }
+
     .search-bar input:focus-visible{
         outline: none;
     }
@@ -75,10 +78,29 @@
     font-weight:bolder;
     text-transform: uppercase;
     color: #db202b;
+    display: flex;
+
+}   .second_title{
+    padding-top: 45px;
+    }
+
+.divTitle, span {
+    padding-left: 40px;
+    padding-right: 30px;
+    font-size: 30px;
 }
-.second_title{
-padding-top: 45px;
+
+select {
+    padding: 4px 10px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.329);
+    background-color: rgb(34, 34, 34);
+    color: white;
+    font-size: 15px;
 }
+
+
+
 .title-search-res h1{
 padding-left: 50px;
 padding-bottom: 5px;
@@ -102,41 +124,36 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.801)
 
 .movie-container, .series-container{
     width: 100%;
+    height: 600px;
     text-align: left;
     display: flex;
     overflow-x: scroll; 
 }
-
     .element-card{
         margin-left: 2px;
         margin-right: 2px;
-        margin-bottom: 20px;
+        height: 523px;
     }
-
     .info-box{
         opacity: 0%;
         position: absolute;
         width: 100%;
-        height: 100%;
+        height: 513px;
+        overflow-y: scroll;
         padding: 20px;
         color: white; 
         border: 1px solid white;
         cursor: pointer;
         z-index: 1;
+        background-color: #000000e0;
     }
     .info-box:hover{
         opacity: 100%;
     }
-    .background-overlay{
-        position: absolute;
-        top: 0%;
-        left: 0%;
-        right: 0%;
-        bottom: 0%;
-        background-color: black;
-        opacity: 70%;
-        z-index: -1;
-    }
+
+    .info-box::-webkit-scrollbar {
+        width: 0;
+      }
 
     .title-block{
         padding-top: 10px;
@@ -148,7 +165,6 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.801)
     .original-lang-block{
         display: flex;
         align-items: center;
-
         width: 100%;
     }
     .original-lang-block img{
@@ -211,3 +227,34 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.801)
         background-color: black;
    
     }
+
+.details{
+    width: 900px;
+    min-height: 600px;
+    max-height: 100%;
+    padding: 20px 60px 20px 60px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    border: 1px solid white;
+
+    background-color: rgba(17, 17, 17, 0.973);
+    color: white;
+    z-index: 3;
+    cursor: pointer;
+    }
+
+    .details>*{
+        margin-bottom: 15px;
+    }
+
+    .genreSpan{
+        text-decoration: underline;
+        font-weight: 500;
+        font-size: 18px;
+        margin-right: 5px;
+    }
+
+    

@@ -18,103 +18,188 @@
 
 <!--header e barra ricerca-->
     <div class="header">
-        <div class="logo"><img src="boolflix_img/boolflix.png" alt=""></div>
+        <div class="logo"><img src="boolflix_img/boolflix.png" alt="" @click="refresh"></div>
+
+        <!--ricerca per testo-->
         <div class="search-bar">
             <input v-model="textToSearch" v-on:keyup.enter ="doSearch" type="text" placeholder="Search...">
             <button @click="doSearch">
                 <i class="fa fa-search" aria-hidden="true"></i>
             </button>
         </div>
+
     </div>
     <div class="fake-body"><div class="copyright-box"></div></div>
-    
-<!--Lista film-->
-<div v-if="movieList  != ''" class="background-container">
-        <div v-if="movieList != ''" class="title-search-res"><h1>Film</h1></div>
-        <div v-if="movieList != ''"class="movie-container customScrollBar"> 
-            <li v-for="element in movieList" class="element-card">  
-                <div class="info-box">  <!--Info e overlay-->
 
-                            <div class="title-block"> 
-                                <h4>Titolo: {{element.title}}</h4>
-                                <h4 v-if="element.title != element.original_title">Titolo originale: {{element.original_title}}</h4>
-                            </div>
 
-                            <div v-if="element.original_language" class="original-lang-block" class="card">
-                                <h4>Lingua originale</h4>
-                                <img alt="" v-bind:src="element.original_language_2" alt="">
-                            </div>
-                            <div v-if="element.vote_average" class="vote-block" >
-                                    <h4>Voto :</h4>
-                                    <div v-for="value in element.vote_average_2" class="stars-block">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </div>
-                                    <div v-for="value in element.vote_average_difference" class="stars-block">
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                    </div>
+<!----card-dettagli---->
 
+    <div class="details" v-if="Object.keys(active).length>0" @click="close">
+
+   
+
+            <div v-if="active.vote_average" class="vote-block" >  <!--voto e stampa stelle-->
+
+                    <div v-for="value in active.vote_average_2" class="stars-block">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    </div>
+                    <div v-for="value in active.vote_average_difference" class="stars-block">
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                    </div>
+            </div> 
+
+
+            <h2>{{active.title}}</h2>
+
+            <h4 v-if="active.title != active.original_title">Titolo originale: {{active.original_title}}</h4>
+
+            <p v-if="active.overview">{{active.overview}}</p>
+            <p v-else> Trama non disponibile.</p>
+
+            <div v-if= "actors.length>0" >
+                <h4 v-for= "actor in actors" >{{actor.original_name}}</h4>
+            </div>
+            <div v-else>
+                <p>Cast non disponibile</p>
+            </div>
+
+            <div v-if= "active.genres" >
+                <span v-for="genre in active.genres" class="genreSpan">{{genre.name}} </span>
+            </div>
+            <div v-else>
+                <p>Categorie non disponibili</p>
+            </div>
+            
+    </div>
+
+
+<!--Lista film-------------->
+
+    <div v-if="movieList  !='' " class="background-container" >    <!--mostra contenitore se la lista esiste-->
+
+            <div v-if="movieList != ''" class="title-search-res">    <!--titolo ricerca-->
+                <span class="divTitle">Film</span>
+
+                <!--ricerca per genere film-->
+                <select v-model="activeMovieGen" name="movies" @change="movieFilter()">
+                    <option value="" selected disabled hidden>Per genere</option>
+                    <option v-for="el in movieGenres" :value="el.id">{{el.name}}</option>
+                    <option  :value="0"> Tutti </option>
+                </select>
+
+            </div>
+
+            <div v-if="movieList != ''"class="movie-container customScrollBar"> 
+                <li v-for="element in movieListFltr" class="element-card"  @click="selectFun(element),  getCast('movie', element.id), getGenre('movie', element.id, element)">   <!--stampa card elemento" -->
+                    
+                    <div class="info-box" >  <!--Info e overlay-->
+
+                        <div class="title-block">    
+                            <h4>Titolo: {{element.title}}</h4>
+                            <h4 v-if="element.title != element.original_title">Titolo originale: {{element.original_title}}</h4>
+                        </div>
+
+                        <div v-if="element.original_language" class="original-lang-block" class="card">
+                            <h4>Lingua originale</h4>
+                            <img alt="" v-bind:src="element.original_language_2" alt="">
+                        </div>
+
+                        <div v-if="element.vote_average" class="vote-block" >  <!--voto e stampa stelle-->
+
+                            <h4>Voto :</h4>
+                            <div v-for="value in element.vote_average_2" class="stars-block">
+                                <i class="fa fa-star" aria-hidden="true"></i>
                             </div>
-                            <div v-if="element.overview">
-                                <h4>Panoramica:</h4> <p>{{element.overview_2}}</p>
+                            <div v-for="value in element.vote_average_difference" class="stars-block">
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
                             </div>
-                    <div class="background-overlay"></div>
-                </div>    <!--fine info, impostazione copertine------>
-                <div class="poster-block">
+                        </div> 
+
+                        <div v-if="element.overview">
+                            <h4>Panoramica:</h4> <p>{{element.overview}}</p>
+                        </div>
+
+                        <div class="background-overlay"></div>
+                    </div>    
+
+                    <!--fine info, impostazione copertine------>
+
+                    <div class="poster-block">
+                            <div v-if="element.poster_path"class="poster">
+                                <img alt="" v-bind:src="element.poster_path_2" alt="">
+                            </div>         
+                            <div v-else class="poster-not-found">
+                                <h3> Preview not available </h3>
+                            </div>
+                    </div>
+                </li>      
+            </div>
+
+
+    <!--Lista serie-------------->
+
+
+            <div v-if="tvSeriesList != ''" class="title-search-res second_title">
+                <span class="divTitle" >Serie</span>
+
+                <!--ricerca per genere tv-->
+
+                <select v-model="activeTvGen" name="series"  @change="seriesFilter()">
+                        <option value="" selected disabled hidden>Per genere</option>
+                        <option v-for="el in tvGenres" :value="el.id">{{el.name}}</option>
+                        <option :value="0" selected="selected"> Tutti </option>
+                </select>
+
+            </div>
+            <div v-if="tvSeriesList != ''" class="series-container customScrollBar">
+                <li v-for="element in tvSeriesListFltr" class="element-card" @click="selectFun(element),  getCast('tv', element.id), getGenre('tv', element.id, element)">  
+                    <div class="info-box" >  <!--Info e overlay-->
+
+                        <div class="title-block"> 
+                            <h4>Titolo: {{element.title}}</h4>
+                            <h4 v-if="element.title != element.original_title">Titolo originale: {{element.original_title}}</h4>
+                        </div>
+
+                        <div v-if="element.original_language" class="original-lang-block" class="card">
+                            <h4>Lingua originale</h4>
+                            <img alt="" v-bind:src="element.original_language_2" alt="">
+                        </div>
+                        <div v-if="element.vote_average" class="vote-block" >
+                            <h4>Voto :</h4>
+
+                            <div v-for="value in element.vote_average_2" class="stars-block">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                            <div v-for="value in element.vote_average_difference" class="stars-block">
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            </div>
+                        </div>
+
+                        <div v-if="element.overview">
+                            <h4>Panoramica:</h4> <p>{{element.overview}}</p>
+                        </div>
+
+                        <div class="background-overlay"></div>
+                    </div>
+
+                    <!--fine info, impostazione copertine------>
+
+                    <div class="poster-block">
                         <div v-if="element.poster_path"class="poster">
                             <img alt="" v-bind:src="element.poster_path_2" alt="">
                         </div>         
                         <div v-else class="poster-not-found">
                             <h3> Preview not available </h3>
                         </div>
-                </div>
-            </li>      
-        </div>
-
-    <!--Lista serie-->
-
-        <div v-if="movieList != ''" class="title-search-res second_title"><h1>Serie</h1></div>
-        <div v-if="movieList != ''" class="series-container customScrollBar">
-            <li v-for="element in tvSeriesList" class="element-card">  
-                <div class="info-box">  <!--Info e overlay-->
-
-                            <div class="title-block"> 
-                                <h4>Titolo: {{element.title}}</h4>
-                                <h4 v-if="element.title != element.original_title">Titolo originale: {{element.original_title}}</h4>
-                            </div>
-
-                            <div v-if="element.original_language" class="original-lang-block" class="card">
-                                <h4>Lingua originale</h4>
-                                <img alt="" v-bind:src="element.original_language_2" alt="">
-                            </div>
-                            <div v-if="element.vote_average" class="vote-block" >
-                                    <h4>Voto :</h4>
-                                    <div v-for="value in element.vote_average_2" class="stars-block">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    </div>
-                                    <div v-for="value in element.vote_average_difference" class="stars-block">
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                    </div>
-                            </div>
-                            <div v-if="element.overview">
-                                <h4>Panoramica:</h4> <p>{{element.overview_2}}</p>
-                            </div>
-                    <div class="background-overlay"></div>
-                </div>     <!--fine info, impostazione copertine------>
-                <div class="poster-block">
-                        <div v-if="element.poster_path"class="poster">
-                            <img alt="" v-bind:src="element.poster_path_2" alt="">
-                        </div>         
-                        <div v-else class="poster-not-found">
-                            <h3> Preview not available </h3>
-                        </div>
-                </div>
-            </li>        
-        </div>
-</div>
+                    </div>
+                </li>        
+            </div>
+    </div>
     <div class="footer"></div>
         
- </main>
- <script src="scriptBoolflix.js"></script>   
+</main>
+<script src="scriptBoolflix.js"></script> 
+
 </body>
 </html>
 
