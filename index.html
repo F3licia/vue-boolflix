@@ -57,14 +57,14 @@
             <p v-else> Trama non disponibile.</p>
 
             <div v-if= "actors.length>0" >
-                <h4 v-for= "actor in actors" >{{actor.original_name}}</h4>
+                <p v-for= "actor in actors" >{{actor.original_name}}</p>
             </div>
             <div v-else>
                 <p>Cast non disponibile</p>
             </div>
 
             <div v-if= "active.genres" >
-                <span v-for="genre in active.genres" class="genreSpan">{{genre.name}} </span>
+                <span v-for="genre in active.genres" class="genreSpan"> <i class="fa fa-film" aria-hidden="true"></i> {{genre.name}} </span>
             </div>
             <div v-else>
                 <p>Categorie non disponibili</p>
@@ -116,7 +116,9 @@
                         </div> 
 
                         <div v-if="element.overview">
-                            <h4>Panoramica:</h4> <p>{{element.overview}}</p>
+                            <h4>Panoramica:</h4>
+                            <p>{{element.overview}}</p>
+                            <h5>Clicca per leggere tutto</h5>
                         </div>
 
                         <div class="background-overlay"></div>
@@ -176,7 +178,9 @@
                         </div>
 
                         <div v-if="element.overview">
-                            <h4>Panoramica:</h4> <p>{{element.overview}}</p>
+                            <h4>Panoramica:</h4>
+                            <p>{{element.overview}}</p>
+                            <h5>Clicca per leggere tutto</h5>
                         </div>
 
                         <div class="background-overlay"></div>

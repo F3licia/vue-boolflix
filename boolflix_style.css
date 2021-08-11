@@ -67,6 +67,7 @@
         background-color: #db202b;
         padding: 4px 10px;
         border-radius: 10px;
+        cursor: pointer;
     }
     .search-bar button:active{
         color: gray;
@@ -84,7 +85,7 @@
     padding-top: 45px;
     }
 
-.divTitle, span {
+.divTitle {
     padding-left: 40px;
     padding-right: 30px;
     font-size: 30px;
@@ -109,10 +110,12 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.801)
 
 .customScrollBar::-webkit-scrollbar {
     height: 10px;
+    
   }
   .customScrollBar::-webkit-scrollbar-track {
     box-shadow: inset 0 0 10px rgba(10, 10, 10, 0.87); 
     border-radius: 10px;
+    
   }
   .customScrollBar::-webkit-scrollbar-thumb {
     background: #db202b;
@@ -146,6 +149,11 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.801)
         cursor: pointer;
         z-index: 1;
         background-color: #000000e0;
+    }
+
+    .info-box h5{
+        margin-top: 15px;
+        margin-bottom: 20px;
     }
     .info-box:hover{
         opacity: 100%;
@@ -248,13 +256,20 @@ border-bottom: 1px solid rgba(255, 255, 255, 0.801)
 
     .details>*{
         margin-bottom: 15px;
+
     }
 
     .genreSpan{
-        text-decoration: underline;
         font-weight: 500;
         font-size: 18px;
         margin-right: 5px;
     }
+
+    .genreSpan>.fa-film{
+        color: #db202b;
+        font-size: 15px;
+    }
+
+
 
     
